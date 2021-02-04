@@ -8,7 +8,7 @@
 
 #include <algorithm>
 
-std::string names[] = {"One", "Two", "Three", "Four", "Five", "Six", "Choice", "Four Card", "Full House", "S.Straight", "L.Straight",  "Yacht"};
+std::string names[] = {"One", "Two", "Three", "Four", "Five", "Six", "Choice", "Four Card", "Full House", "L.Straight", "S.Straight",  "Yacht"};
 
 void print(int selection, const std::vector<int>& score)
 {
