@@ -48,7 +48,7 @@ int main(int argc, char **argv)
         for(int k=0; k<TOTAL_DICE_COUNT; ++k) std::cin >> d[k];
         int TODO = op[0][curval][std::min(bonus, BONUS_LIMIT)][encode(d)];
 
-        printf("Recommended choice: %s\n", names[TODO].c_str());
+        printf("Recommended choice: %s (%d)\n", names[TODO].c_str(), TODO + 1);
 
         int choice = 0;
         printf("Your choice: "); std::cin >> choice; --choice;
