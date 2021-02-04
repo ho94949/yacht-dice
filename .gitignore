@@ -48,3 +48,6 @@
 
 eval.bin
 op.bin
+
+# Main executable
+main

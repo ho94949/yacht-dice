@@ -10,7 +10,7 @@ Expected score value of Yacht dice game with optimal play is 185.317430, way mor
 
 - You should have C++-17 compatible compiler.
   - Tested with g++ 9.3.0 on ubuntu 20.04 WSL.
-- This program requires 2GB of memory to save all possible state of yacht dice.
+- This program requires 300MB of memory to save all possible state of yacht dice.
 
 ## Rules
 
@@ -35,8 +35,9 @@ You can modify these rules in [rule.hh](https://github.com/ho94949/yacht-dice/bl
 ## Build & Execution
 
 1. Build all `*.cc` files in `src` or use `./compile.sh`. `./main` will be produced in root directory.
-2. `./main calc` produces pre-calculation files, `eval.bin` and `op.bin`. (Total 1.66GB)
+2. `./main calc` produces pre-calculation files, `eval.bin` and `op.bin`. (Total 200MB)
    1. Calculation takes  20 minutes, 1.7GB of memory on Intel(R) Core(TM) i5-10400 CPU @ 2.90GHz.
+   2. pre-computed `eval.bin` and `op.bin` can be downloaded in "Release" tab.
 3. `./main` loads `eval.bin` and `op.bin` if they exists.
 
 ## Usage
@@ -61,7 +62,7 @@ This Yacht Dice AI use bitmask dynamic programming, thus investigating all possi
 If you want, you can create PR to this repository.
 
 - Multi-core, GPU, or AVX support could be added.
-- `dp` and `op` variable need not to be exported with careful implementation (will need little more calculation on run-time)
+- `op` variable need not to be exported with careful implementation (will need little more calculation on run-time)
 - Winning probability support. Supporting this naively will cost 660 times more calculation and memory. So multicore and file size reducing would be needed.
 
 ## License

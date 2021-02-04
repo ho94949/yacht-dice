@@ -10,7 +10,6 @@
 #include <cstdlib>
 
 double dpave[1<<TOTAL_SUIT][BONUS_LIMIT+1];
-double dp[TOTAL_DICE_ROUND+1][1<<TOTAL_SUIT][BONUS_LIMIT+1][TOTAL_DICE_COMB];
 int8_t op[TOTAL_DICE_ROUND+1][1<<TOTAL_SUIT][BONUS_LIMIT+1][TOTAL_DICE_COMB];
 
 void save()
@@ -18,9 +17,6 @@ void save()
     FILE *fp = fopen("eval.bin", "wb");
     if(!fp) std::cerr << "Cannot open eval.bin to write." << std::endl, exit(EXIT_FAILURE);
 
-    if(sizeof(dp)/sizeof(double) !=
-        fwrite(dp, sizeof(double), sizeof(dp)/sizeof(double), fp))
-            std::cerr << "Cannot write to eval.bin" << std::endl, exit(EXIT_FAILURE);
     if(sizeof(dpave)/sizeof(double) !=
         fwrite(dpave, sizeof(double), sizeof(dpave)/sizeof(double), fp))
             std::cerr << "Cannot write to eval.bin" << std::endl, exit(EXIT_FAILURE);
@@ -40,9 +36,6 @@ void load(char* prog)
     FILE *fp = fopen("eval.bin", "rb");
     if(!fp) std::cerr << "eval.bin not found. use '" << prog << " calc' to calculate." << std::endl, exit(EXIT_FAILURE);
 
-    if(sizeof(dp)/sizeof(double) !=
-        fread(dp, sizeof(double), sizeof(dp)/sizeof(double), fp))
-            std::cerr << "Corrupted eval.bin" << std::endl, exit(EXIT_FAILURE);
     if(sizeof(dpave)/sizeof(double) !=
         fread(dpave, sizeof(double), sizeof(dpave)/sizeof(double), fp))
             std::cerr << "Corrupted eval.bin" << std::endl, exit(EXIT_FAILURE);
@@ -59,6 +52,14 @@ void load(char* prog)
 
 void calc()
 {
+    /*
+    * dp[k][i][j][s], expected future gain (bonus excluded)
+    * when current selected combinations are i, sum of bonus score is j,
+    * remaining re-roll is k, and current combination is s.
+    */
+    auto dp = new double[TOTAL_DICE_ROUND+1][1<<TOTAL_SUIT][BONUS_LIMIT+1][TOTAL_DICE_COMB];
+
+
     dpave[(1<<TOTAL_SUIT)-1][BONUS_LIMIT] = BONUS_SCORE;
     for(int selected_suit=(1<<TOTAL_SUIT)-2; selected_suit>=0; --selected_suit)
     {

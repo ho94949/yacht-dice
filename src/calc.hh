@@ -14,12 +14,7 @@
  */
 extern double dpave[1<<TOTAL_SUIT][BONUS_LIMIT+1];
 
-/*
- * dp[k][i][j][s], expected future gain (bonus excluded)
- * when current selected combinations are i, sum of bonus score is j,
- * remaining re-roll is k, and current combination is s.
- */
-extern double dp[TOTAL_DICE_ROUND+1][1<<TOTAL_SUIT][BONUS_LIMIT+1][TOTAL_DICE_COMB];
+
 
 /*
  * op[k][i][j][s], optimal operation
