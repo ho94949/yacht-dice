@@ -1,0 +1,1 @@
+g++ -o main src/main.cc src/calc.cc src/print.cc src/rule.cc src/helper.cc -O2 -std=c++17
