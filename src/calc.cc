@@ -12,42 +12,46 @@
 double dpave[1<<TOTAL_SUIT][BONUS_LIMIT+1];
 int8_t op[TOTAL_DICE_ROUND+1][1<<TOTAL_SUIT][BONUS_LIMIT+1][TOTAL_DICE_COMB];
 
-void save()
+bool save(const char* file_name)
 {
-    FILE *fp = fopen("eval.bin", "wb");
-    if(!fp) std::cerr << "Cannot open eval.bin to write." << std::endl, exit(EXIT_FAILURE);
+    FILE *fp = fopen(file_name, "wb");
+    if(!fp) return false;
 
     if(sizeof(dpave)/sizeof(double) !=
         fwrite(dpave, sizeof(double), sizeof(dpave)/sizeof(double), fp))
-            std::cerr << "Cannot write to eval.bin" << std::endl, exit(EXIT_FAILURE);
-    fclose(fp);
-
-    fp = fopen("op.bin", "wb");
-    if(!fp) std::cerr << "Cannot open op.bin to write." << std::endl, exit(EXIT_FAILURE);
-
+            return false;
     if(sizeof(op)/sizeof(int8_t) !=
         fwrite(op, sizeof(int8_t), sizeof(op)/sizeof(int8_t), fp))
-            std::cerr << "Cannot write to op.bin" << std::endl, exit(EXIT_FAILURE);
+            return false;
+
     fclose(fp);
+    return true;
 }
 
-void load(char* prog)
+bool load(const char* file_name)
 {
-    FILE *fp = fopen("eval.bin", "rb");
-    if(!fp) std::cerr << "eval.bin not found. use '" << prog << " calc' to calculate." << std::endl, exit(EXIT_FAILURE);
+    FILE *fp = fopen(file_name, "rb");
+    if(!fp)
+    {
+        std::cerr << "Cannot open " << file_name << std::endl;
+        return false;
+    }
 
     if(sizeof(dpave)/sizeof(double) !=
         fread(dpave, sizeof(double), sizeof(dpave)/sizeof(double), fp))
-            std::cerr << "Corrupted eval.bin" << std::endl, exit(EXIT_FAILURE);
-    fclose(fp);
-
-    fp = fopen("op.bin", "rb");
-    if(!fp) std::cerr << "op.bin not found. use '" << prog << " calc' to calculate." << std::endl, exit(EXIT_FAILURE);
-
+        {
+            std::cerr << "Corrupted " << file_name << std::endl;
+            return false;
+        }
     if(sizeof(op)/sizeof(int8_t) !=
         fread(op, sizeof(int8_t), sizeof(op)/sizeof(int8_t), fp))
-            std::cerr << "Corrupted op.bin" << std::endl, exit(EXIT_FAILURE);
+        {
+            std::cerr << "Corrupted " << file_name << std::endl;
+            return false;
+        }
+
     fclose(fp);
+    return true;
 }
 
 void calc()

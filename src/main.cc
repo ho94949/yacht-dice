@@ -16,15 +16,27 @@ int main(int argc, char **argv)
     if(argc == 2 && std::string(argv[1]) == "calc")
     {
         calc();
-        save();
+        if(!save("data.bin"))
+        {
+            std::cerr << "Cannot write to data.bin" << std::endl;
+            return 1;
+        }
         return 0;
     }
-    else load(argv[0]), std::cout << "Load OK!" << std::endl;
+    else
+    {
+        if(!load("data.bin"))
+        {
+            std::cerr << "`" << argv[0] << " calc` to calculate data.bin" << std::endl;
+            return 1;
+        }
+        std::cout << "Load OK!" << std::endl;
+    }
 
-    std::vector<int> score(12);
+    std::vector<int> score(TOTAL_SUIT);
     int curval = 0, bonus = 0;
 
-    for(int i=0; i<12; ++i)
+    for(int i=0; i<TOTAL_SUIT; ++i)
     {
         Dices d;
         print(curval, score);

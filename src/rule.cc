@@ -36,16 +36,6 @@ int FullHouse(Dices d)
     else return 0;
 }
 
-int LStraight(Dices d)
-{
-    std::sort(d.begin(), d.end());
-    if( d[0] + 1 == d[1] &&
-        d[1] + 1 == d[2] &&
-        d[2] + 1 == d[3] &&
-        d[3] + 1 == d[4] ) return 30;
-    else return 0;
-}
-
 int SStraight(Dices d)
 {
     bool a[DICE_NO+1];
@@ -56,12 +46,22 @@ int SStraight(Dices d)
     else return 0;
 }
 
+int LStraight(Dices d)
+{
+    std::sort(d.begin(), d.end());
+    if( d[0] + 1 == d[1] &&
+        d[1] + 1 == d[2] &&
+        d[2] + 1 == d[3] &&
+        d[3] + 1 == d[4] ) return 30;
+    else return 0;
+}
+
 int Yacht(Dices d)
 {
-    for(int v: d) if(v == d[0]) return 0;
+    for(int v: d) if(v != d[0]) return 0;
     return 50;
 }
 
 std::function<int(Dices)> scoring[TOTAL_SUIT] = {
-	Ones, Twos, Threes, Fours, Fives, Sixes, Choice, FourCards, FullHouse, LStraight, SStraight, Yacht
+	Ones, Twos, Threes, Fours, Fives, Sixes, Choice, FourCards, FullHouse, SStraight, LStraight, Yacht
 };

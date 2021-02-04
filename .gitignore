@@ -48,6 +48,7 @@
 
 eval.bin
 op.bin
+data.bin
 
 # Main executable
 main

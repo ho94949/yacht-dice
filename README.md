@@ -4,7 +4,7 @@ AI of [Yacht Dice](https://en.wikipedia.org/wiki/Yacht_(dice_game)).
 
 This AI maximizes expected value of yacht. This AI Do not consider opponent, thus not maximizing winning probability.
 
-Expected score value of Yacht dice game with optimal play is 185.317430, way more than average person playing.
+Expected score value of Yacht dice game with optimal play is 191.774369, way more than average person playing.
 
 ## Requirement
 
@@ -14,7 +14,7 @@ Expected score value of Yacht dice game with optimal play is 185.317430, way mor
 
 ## Rules
 
-Yacht dice game has many variations, and this game uses following rule.
+Yacht dice game has many variations, and this game uses following rules.
 
 - One, Two, Three, Four, Five, Six
   - For any combination, score is the sum of dice with chosen number.
@@ -23,10 +23,10 @@ Yacht dice game has many variations, and this game uses following rule.
   - If combination includes four dice showing the same face, score is the sum of all dice.
 - Full House
   - If combination is given ans two of one number and three of another, score is the sum of all dice.
-- L. Straight
-  - If combination is 5 consecutive numbers, score is 30.
 - S. Straight
   - If combination has 4 consecutive numbers, score is 15.
+- L. Straight
+  - If combination is 5 consecutive numbers, score is 30.
 - Yacht
   - If all five dices are showing same face, score is 50.
 
@@ -34,15 +34,16 @@ You can modify these rules in [rule.hh](https://github.com/ho94949/yacht-dice/bl
 
 ## Build & Execution
 
-1. Build all `*.cc` files in `src` or use `./compile.sh`. `./main` will be produced in root directory.
-2. `./main calc` produces pre-calculation files, `eval.bin` and `op.bin`. (Total 200MB)
+1. Build all `*.cc` files in `src`, or just execute `./compile.sh`. If you execute `./compile.sh`, `./main` will be produced in root directory.
+2. `./main calc` produces pre-calculation files, `data.bin`. (Total 200MB)
    1. Calculation takes  20 minutes, 1.7GB of memory on Intel(R) Core(TM) i5-10400 CPU @ 2.90GHz.
-   2. pre-computed `eval.bin` and `op.bin` can be downloaded in "Release" tab.
-3. `./main` loads `eval.bin` and `op.bin` if they exists.
+3. `./main` loads `data.bin` if they exists.
+
+Win10 64bit binary and pre-computed `data.bin` can be downloaded in [Releases](https://github.com/ho94949/yacht-dice/releases) tab.
 
 ## Usage
 
-This program shows tabular interface of yacht dice game.
+This program shows tabular interface of yacht dice game. Score is your earned score, while estimation is expected value of optimal play.
 - `Input your dice (? more re-rolls)`
   - You should enter 5 space-separated integer, when dice rolled.
   - This program shows recommended dice to keep. (In most program, Click can be used to keep dices.)
